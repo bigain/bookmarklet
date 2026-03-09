@@ -104,10 +104,6 @@ function startExtend(){
   extendInterval=setInterval(clickExtend,EXTEND_INTERVAL);
 }
 
-function stopExtend(){
-  clearInterval(extendInterval);
-}
-
 /* ================= 버튼 ================= */
 
 modeBtn.onclick=function(){
@@ -125,10 +121,7 @@ runBtn.onclick=function(){
   +`(${cycleIndex+1}/${cycleRound})`;
 
   if(running){
-    startExtend();
     check();
-  }else{
-    stopExtend();
   }
 
 };
@@ -136,7 +129,7 @@ runBtn.onclick=function(){
 exitBtn.onclick=function(){
 
   running=false;
-  stopExtend();
+  clearInterval(extendInterval);
   clearInterval(blinkInterval);
   document.title=originalTitle;
   panel.remove();
@@ -248,8 +241,6 @@ function check(){
 
       running=false;
 
-      stopExtend();
-
       alert("네트워크 오류 → 중단");
 
       return;
@@ -264,7 +255,7 @@ function check(){
 
 /* ================= 시작 ================= */
 
-startExtend();
+startExtend(); // 세션 연장은 항상 유지
 check();
 
 })();
